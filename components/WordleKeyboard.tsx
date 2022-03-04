@@ -1,13 +1,20 @@
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {BoxState} from "./WordleBox";
 
+// The valid props for a keyboard instance
 interface KeyboardProps {
   letterState: Map<string, BoxState>;
 
+  // onLetter is called whenever a letter is pressed on the WordleKeyboard
+  // This callback is passed down to each letter in the keyboard
   onLetter(letter: string): void
 
+  // onSubmit is called whenever the enter button is pressed
+  // This is passed down to the enter button component
   onSubmit(): void
 
+  // onDelete is called whenever the delete button is pressed
+  // This is passed down to the delete button component
   onDelete(): void
 }
 
@@ -31,6 +38,8 @@ function KeyboardButton(props: KeyboardButtonProps) {
 }
 
 export default function WordleKeyboard(props: KeyboardProps) {
+
+  // Build a keyboard button for the given character
   const getLetter = (char: string) => {
     return <KeyboardButton onPress={(l) => props.onLetter(l)}
                            text={char}
@@ -86,17 +95,21 @@ const styles = StyleSheet.create({
   },
   letterPresent: {},
   letterCorrect: {},
+  letterIncorrect: {},
   letterUnknown: {
     backgroundColor: 'lightgray'
   }
 });
 
+// Get the proper style for the given BoxState
 const getButtonStyle = (state: BoxState) => {
   switch (state) {
     case BoxState.Present:
       return styles.letterPresent
     case BoxState.Correct:
       return styles.letterCorrect;
+    case BoxState.Incorrect:
+      return styles.letterIncorrect;
   }
 
   return styles.letterUnknown;

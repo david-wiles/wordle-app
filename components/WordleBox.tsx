@@ -1,5 +1,7 @@
 import {StyleSheet, View, Text} from "react-native";
 
+// BoxState is an enum containing valid representations of the state for the
+// guess of a single letter. This will be used by the box as well as keyboard
 enum BoxState {
   Unknown = 'unknown',
   Present = 'present',
@@ -7,6 +9,7 @@ enum BoxState {
   Incorrect = 'incorrect'
 }
 
+// BoxProps contains the props for a single WordleBox
 interface BoxProps {
   letter: string,
   state: BoxState
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// Get the proper box style for the given BoxState
 const getBoxStyle = (state: BoxState) => {
   switch (state) {
     case BoxState.Incorrect:

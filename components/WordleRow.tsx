@@ -6,17 +6,12 @@ interface RowProps {
   position: number;
 }
 
-const buildBoxes = (props: RowProps) => {
-  return props.word.map(({letter, state}, index) => <WordleBox key={'row-' + props.position + '-box-' + index}
-                                                               letter={letter}
-                                                               state={state}/>);
-}
-
 export default function WordleRow(props: RowProps) {
   return (
     <View style={styles.wordleRow}>
       {
-        buildBoxes(props)
+        props.word.map(({letter, state}, index) =>
+          <WordleBox key={'row-' + props.position + '-box-' + index} letter={letter} state={state}/>)
       }
     </View>
   );
